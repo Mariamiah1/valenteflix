@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><VALENTEFLIX-HD></VALENTEFLIX-HD></title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: black;
+            color: #FF6600;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-bottom: 1px solid #FF6600;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav li {
+            margin-left: 20px;
+        }
+        
+        nav a {
+            color: #FF6600;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: #FF6600;
+            color: black;
+        }
+        
+        .login-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-status {
+            margin-right: 15px;
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .signup-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #FF6600;
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
+            margin-bottom: 30px;
+        }
+        
+        h1, h2 {
+            text-align: center;
+            background: linear-gradient(45deg, #FF6600, #FFD700, #FF6600);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #FF6600;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #FF6600;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        
+        .mercadopago-button {
+            display: block;
+            margin: 30px auto;
+            text-align: center;
+        }
+        
+        .benefits {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px dashed #FF6600;
+            border-radius: 10px;
+        }
+        
+        .benefits h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        .benefits ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .benefits li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+        }
+        
+        .holographic {
+            background: linear-gradient(45deg, #FF6600, #FFD700, #FF6600, #FFA500);
+            background-size: 400% 400%;
+            animation: gradient 3s ease infinite;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .preview-section {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #FF6600;
+            text-align: center;
+        }
+        
+        .preview-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .preview-item {
+            position: relative;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #FF6600;
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(5px);
+        }
+        
+        .preview-item::after {
+            content: "Assine para acessar";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #FF6600;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #FF6600;
+        }
+        
+        .button {
+            background-color: #FF6600;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #FFD700;
+        }
+        
+        /* Estilos para o conteúdo quando logado */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+        
+        .content-item {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #FF6600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.7);
+        }
+        
+        .content-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .content-info {
+            padding: 15px;
+        }
+        
+        .content-title {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #FFD700;
+        }
+        
+        .content-description {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        #loginSection, #contentSection {
+            display: none;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo holographic">VALENTEFLIX-HD</div>
+        <nav>
+            <ul>
+                <li><a href="index.html" id="homeLink">Início</a></li>
+                <li><a href="novelas.html" id="novelasLink">Novelas</a></li>
+                <li><a href="contato.html" id="contatoLink">contato</a></li>
+                
+            </ul>
+        </nav>
+        <div class="login-info">
+            <div class="user-status" id="userStatus">Visitante</div>
+            <button class="button" id="loginButton">Entrar</button>
+            <button class="button" id="logoutButton" style="display: none;">Sair</button>
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <!-- Seção de Cadastro e Login (para não assinantes) -->
+        <div id="signupSection" class="signup-container">
+            <h1 class="holographic">Acesso Premium</h1>
+            <h2 class="holographic">Assine para Acessar Novelas Exclusivas</h2>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password">Confirmar Senha</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                
+                <div class="mercadopago-button">
+                    <script src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js" data-preference-id="291640237-d87e5c8c-72f7-4da2-8a3f-797ebe35a92b" data-source="button"></script>
+                </div>
+            </form>
+            
+            <div class="benefits">
+                <h3 class="holographic">Benefícios da Assinatura</h3>
+                <ul>
+                    <li>Acesso ilimitado a todas as novelas</li>
+                    <li>Conteúdo exclusivo e antecipado</li>
+                    <li>Sem anúncios durante a reprodução</li>
+                    <li>Suporte prioritário 24/7</li>
+                    <li>Cancelamento a qualquer momento</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Seção de Login para usuários já cadastrados -->
+        <div id="loginSection" class="signup-container">
+            <h1 class="holographic">Acesso de Assinante</h1>
+            <h2 class="holographic">Entre com sua conta</h2>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" name="loginEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input type="password" id="loginPassword" name="loginPassword" required>
+                </div>
+                
+                <button type="submit" class="button" style="width: 100%;">Entrar</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" id="backToSignup" style="color: #FF6600;">Ainda não tem conta? Cadastre-se</a>
+            </div>
+        </div>
+        
+        <!-- Prévia de conteúdo (para não assinantes) -->
+        <div id="previewSection" class="preview-section">
+            <h2 class="preview-title holographic">Prévia do Conteúdo Exclusivo</h2>
+            <div class="preview-grid">
+                <div class="preview-item">
+                    <img src="/api/placeholder/300/200" alt="Novela 1">
+                </div>
+                <div class="preview-item">
+                    <img src="/api/placeholder/300/200" alt="Novela 2">
+                </div>
+                <div class="preview-item">
+                    <img src="/api/placeholder/300/200" alt="Novela 3">
+                </div>
+                <div class="preview-item">
+                    <img src="/api/placeholder/300/200" alt="Novela 4">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conteúdo para assinantes (novelas) -->
+        <div id="contentSection" style="width: 100%; max-width: 1200px;">
+            <h1 class="holographic" style="margin-top: 40px;">Novelas Disponíveis</h1>
+            
+            <div class="content-grid">
+                <div class="content-item">
+                    <img src="/api/placeholder/400/250" alt="Novela Paixão Proibida">
+                    <div class="content-info">
+                        <h3 class="content-title">Paixão Proibida</h3>
+                        <p class="content-description">Uma história de amor que desafia todas as convenções sociais.</p>
+                        <a href="novelas.html?id=1" class="button">Assistir</a>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="/api/placeholder/400/250" alt="Novela Vidas Cruzadas">
+                    <div class="content-info">
+                        <h3 class="content-title">Vidas Cruzadas</h3>
+                        <p class="content-description">Quando o destino conecta pessoas de mundos completamente diferentes.</p>
+                        <a href="novelas.html?id=2" class="button">Assistir</a>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="/api/placeholder/400/250" alt="Novela Segredos do Passado">
+                    <div class="content-info">
+                        <h3 class="content-title">Segredos do Passado</h3>
+                        <p class="content-description">Um mistério de décadas que afeta uma família inteira.</p>
+                        <a href="novelas.html?id=3" class="button">Assistir</a>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="/api/placeholder/400/250" alt="Novela Amor Sem Limites">
+                    <div class="content-info">
+                        <h3 class="content-title">Amor Sem Limites</h3>
+                        <p class="content-description">Uma jornada emocionante de superação e romance.</p>
+                        <a href="novelas.html?id=4" class="button">Assistir</a>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="/api/placeholder/400/250" alt="Novela Destinos Entrelaçados">
+                    <div class="content-info">
+                        <h3 class="content-title">Destinos Entrelaçados</h3>
+                        <p class="content-description">Coincidências que mudam para sempre a vida de estranhos.</p>
+                        <a href="novelas.html?id=5" class="button">Assistir</a>
+                    </div>
+                </div>
+                
+                <div class="content-item">
+                    <img src="/api/placeholder/400/250" alt="Novela Corações Divididos">
+                    <div class="content-info">
+                        <h3 class="content-title">Corações Divididos</h3>
+                        <p class="content-description">Um triângulo amoroso que desafia todas as expectativas.</p>
+                        <a href="novelas.html?id=6" class="button">Assistir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 NovelaMax - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos da interface
+            const signupSection = document.getElementById('signupSection');
+            const loginSection = document.getElementById('loginSection');
+            const previewSection = document.getElementById('previewSection');
+            const contentSection = document.getElementById('contentSection');
+            const userStatus = document.getElementById('userStatus');
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const backToSignup = document.getElementById('backToSignup');
+            
+            // Botões de navegação
+            const homeLink = document.getElementById('homeLink');
+            const novelasLink = document.getElementById('novelasLink');
+            const lancamentosLink = document.getElementById('lancamentosLink');
+            const favoritosLink = document.getElementById('favoritosLink');
+            
+            // Verificar se o usuário está autenticado e com pagamento confirmado
+            function checkAccess() {
+                // Esta função deve ser implementada com verificação real no servidor
+                // Aqui está uma simulação para demonstração
+                
+                // Verifica se há um parâmetro de URL indicando pagamento confirmado
+                const urlParams = new URLSearchParams(window.location.search);
+                const paymentStatus = urlParams.get('payment_status');
+                
+                if (paymentStatus === 'approved') {
+                    // Salvar status no localStorage para simular sessão
+                    localStorage.setItem('paymentApproved', 'true');
+                    const nameInput = document.getElementById('name');
+                    if (nameInput && nameInput.value) {
+                        localStorage.setItem('userName', nameInput.value);
+                    }
+                }
+                
+                // Verificar se o usuário tem acesso salvo no localStorage
+                const hasAccess = localStorage.getItem('paymentApproved') === 'true';
+                const userName = localStorage.getItem('userName') || 'Assinante';
+                
+                return { hasAccess, userName };
+            }
+            
+            // Atualizar interface baseado no status de acesso
+            function updateInterface() {
+                const { hasAccess, userName } = checkAccess();
+                
+                if (hasAccess) {
+                    // Mostrar interface de usuário logado
+                    signupSection.style.display = 'none';
+                    loginSection.style.display = 'none';
+                    previewSection.style.display = 'none';
+                    contentSection.style.display = 'block';
+                    
+                    userStatus.textContent = `Olá, ${userName}`;
+                    loginButton.style.display = 'none';
+                    logoutButton.style.display = 'inline-block';
+                } else {
+                    // Mostrar interface de usuário não logado
+                    signupSection.style.display = 'block';
+                    loginSection.style.display = 'none';
+                    previewSection.style.display = 'block';
+                    contentSection.style.display = 'none';
+                    
+                    userStatus.textContent = 'Visitante';
+                    loginButton.style.display = 'inline-block';
+                    logoutButton.style.display = 'none';
+                }
+            }
+            
+            // Alternar para o formulário de login
+            loginButton.addEventListener('click', function() {
+                signupSection.style.display = 'none';
+                loginSection.style.display = 'block';
+            });
+            
+            // Voltar para o formulário de cadastro
+            backToSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginSection.style.display = 'none';
+                signupSection.style.display = 'block';
+            });
+            
+            // Processar logout
+            logoutButton.addEventListener('click', function() {
+                localStorage.removeItem('paymentApproved');
+                localStorage.removeItem('userName');
+                updateInterface();
+                alert('Você saiu da sua conta.');
+            });
+            
+            // Processar formulário de login
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simulação de login bem-sucedido
+                // Em produção, verificaria as credenciais com o servidor
+                localStorage.setItem('paymentApproved', 'true');
+                localStorage.setItem('userName', email.split('@')[0]);
+                updateInterface();
+            });
+            
+            // Verificar formulário de cadastro antes do envio
+            document.getElementById('signupForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm_password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('As senhas não coincidem!');
+                    return false;
+                }
+                
+                localStorage.setItem('userName', name);
+                // O formulário será processado pelo Mercado Pago
+            });
+            
+            // Gerenciar links de navegação
+            novelasLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const { hasAccess } = checkAccess();
+                
+                if (hasAccess) {
+                    // Redirecionar para a página de novelas
+                    window.location.href = 'novelas.html';
+                } else {
+                    alert('Para acessar as novelas, você precisa ser um assinante.');
+                }
+            });
+            
+            lancamentosLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const { hasAccess } = checkAccess();
+                
+                if (hasAccess) {
+                    alert('Redirecionando para lançamentos...');
+                    // window.location.href = 'lancamentos.html';
+                } else {
+                    alert('Para acessar os lançamentos, você precisa ser um assinante.');
+                }
+            });
+            
+            favoritosLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const { hasAccess } = checkAccess();
+                
+                if (hasAccess) {
+                    alert('Redirecionando para favoritos...');
+                    // window.location.href = 'favoritos.html';
+                } else {
+                    alert('Para acessar seus favoritos, você precisa ser um assinante.');
+                }
+            });
+            
+            homeLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateInterface();
+            });
+            
+            // Escutar eventos do Mercado Pago (simulação)
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'payment.success') {
+                    // Pagamento confirmado no Mercado Pago
+                    localStorage.setItem('paymentApproved', 'true');
+                    alert('Pagamento confirmado! Bem-vindo ao NovelaMax!');
+                    updateInterface();
+                }
+            });
+            
+            // Inicializar interface
+            updateInterface();
+        });
+    </script>
+</body>
+</html>

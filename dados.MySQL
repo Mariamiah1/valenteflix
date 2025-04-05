@@ -1,0 +1,126 @@
+-- Criação do banco de dados
+CREATE DATABASE valenteflix_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE valenteflix_db;
+
+-- Tabela de usuários (estendida do modelo de usuário do Django)
+CREATE TABLE auth_user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(150) NOT NULL UNIQUE,
+    first_name VARCHAR(150) NOT NULL,
+    last_name VARCHAR(150) NOT NULL,
+    email VARCHAR(254) NOT NULL UNIQUE,
+    password VARCHAR(128) NOT NULL,
+    is_superuser TINYINT(1) NOT NULL,
+    is_staff TINYINT(1) NOT NULL,
+    is_active TINYINT(1) NOT NULL,
+    date_joined DATETIME NOT NULL,
+    last_login DATETIME,
+    phone VARCHAR(20),
+    profile_picture VARCHAR(255)
+);
+
+-- Tabela de assinaturas
+CREATE TABLE subscriptions (
+    id CHAR(36) PRIMARY KEY,
+    user_id INT NOT NULL,
+    status VARCHAR(10) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    price DECIMAL(6,2) NOT NULL DEFAULT 9.99,
+    auto_renew TINYINT(1) NOT NULL DEFAULT 1,
+    last_payment_date DATETIME,
+    next_payment_date DATETIME,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE CASCADE
+);
+
+-- Tabela de pagamentos
+CREATE TABLE payments (
+    id CHAR(36) PRIMARY KEY,
+    subscription_id CHAR(36) NOT NULL,
+    user_id INT NOT NULL,
+    amount DECIMAL(6,2) NOT NULL,
+    payment_method VARCHAR(20) NOT NULL,
+    provider_transaction_id VARCHAR(255) NOT NULL,
+    status VARCHAR(10) NOT NULL DEFAULT 'pending',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (subscription_id) REFERENCES subscriptions(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE CASCADE
+);
+
+-- Tabela de categorias
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT,
+    icon VARCHAR(50) NOT NULL
+);
+
+-- Tabela de novelas
+CREATE TABLE novels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    cover_image VARCHAR(255) NOT NULL,
+    category_id INT NOT NULL,
+    release_date DATE NOT NULL,
+    rating DECIMAL(3,1) NOT NULL DEFAULT 0.0,
+    is_featured TINYINT(1) NOT NULL DEFAULT 0,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+-- Tabela de episódios
+CREATE TABLE episodes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    novel_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    video_file VARCHAR(255) NOT NULL,
+    thumbnail VARCHAR(255) NOT NULL,
+    duration INT NOT NULL COMMENT 'Duração em segundos',
+    episode_number INT NOT NULL,
+    views INT NOT NULL DEFAULT 0,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (novel_id) REFERENCES novels(id) ON DELETE CASCADE
+);
+
+-- Tabela de histórico de visualização
+CREATE TABLE watch_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    episode_id INT NOT NULL,
+    watched_time INT NOT NULL DEFAULT 0 COMMENT 'Tempo assistido em segundos',
+    is_completed TINYINT(1) NOT NULL DEFAULT 0,
+    last_watched DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_user_episode (user_id, episode_id),
+    FOREIGN KEY (user_id) REFERENCES auth_user(id) ON DELETE CASCADE,
+    FOREIGN KEY (episode_id) REFERENCES episodes(id) ON DELETE CASCADE
+);
+
+-- Índices para otimização
+CREATE INDEX idx_subscription_user ON subscriptions(user_id);
+CREATE INDEX idx_subscription_status ON subscriptions(status);
+CREATE INDEX idx_payment_user ON payments(user_id);
+CREATE INDEX idx_novel_category ON novels(category_id);
+CREATE INDEX idx_novel_featured ON novels(is_featured);
+CREATE INDEX idx_episode_novel ON episodes(novel_id);
+CREATE INDEX idx_history_user ON watch_history(user_id);
+
+-- Inserção de categorias padrão
+INSERT INTO categories (name, description, icon) VALUES 
+('Romântica', 'Novelas com foco em histórias de amor', 'fa-heart'),
+('Dramática', 'Novelas com foco em conflitos emocionais intensos', 'fa-theater-masks'),
+('Comédia', 'Novelas com foco em situações cômicas', 'fa-laugh'),
+('Época', 'Novelas ambientadas em períodos históricos', 'fa-history'),
+('Internacional', 'Novelas produzidas fora do Brasil', 'fa-globe-americas'),
+('Familiar', 'Novelas com foco em relações familiares', 'fa-users'),
+('Mistério', 'Novelas com foco em mistérios e suspense', 'fa-mask'),
+('Clássica', 'Novelas consideradas clássicas', 'fa-crown');
